@@ -1,2 +1,16 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+  <div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">iDiary</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Track fitness, nutrition and health goals &mdash; easily. The only app you need to achieve ideal body composition, sleep, mental and physical wellbeing.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <% if user_signed_in? %>
+          <%= link_to "My Dashboard", root_path, class:'btn btn-primary btn-lg px-4' %>
+        <% else %>
+          <%= link_to "Start tracking now", new_user_registration_path, class:'btn btn-primary btn-lg px-4 gap-3' %>
+          <%= link_to "My Dashboard", new_user_session_path, class:'btn btn-outline-secondary btn-lg px-4' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
