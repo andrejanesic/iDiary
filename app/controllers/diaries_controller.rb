@@ -1,6 +1,5 @@
 class DiariesController < ApplicationController
   before_action :set_diary, only: %i[show edit update destroy]
-  belongs_to :users
 
   # GET /diaries or /diaries.json
   def index
