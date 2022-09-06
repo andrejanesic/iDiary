@@ -6,8 +6,5 @@ class User < ApplicationRecord
 
   has_many :diaries, dependent: :destroy
 
-  validates :firstname, presence: true
-  validates :lastname, presence: true
-  validates :username, presence: true
   enum role: %i[user admin]
 end
