@@ -13,7 +13,7 @@
 </div>
 <table class="table table-striped">
   <tbody>
-    <% attributesreject(&:password_digest?).each do |attribute| -%>
+    <% attributes.reject(&:password_digest?).each do |attribute| -%>
       <tr>
         <td scope="row">
           <span class="fw-bold"><%= attribute.human_name %></span>

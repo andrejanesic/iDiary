@@ -6,7 +6,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <% attributesreject(&:password_digest?).each do |attribute| -%>
+      <% attributes.reject(&:password_digest?).each do |attribute| -%>
         <th scope="col">
           <%= attribute.human_name %>
         </th>
