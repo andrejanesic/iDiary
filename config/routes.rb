@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :body_entries
   resources :diaries
   get 'app/dashboard'
   devise_for :users
