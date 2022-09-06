@@ -1,6 +1,6 @@
 <h2>Editing <%= singular_table_name %></h2>
-<%= render "form", <%= singular_table_name %>: @<%= singular_table_name %> %>
+<%%= render "form", <%= singular_table_name %>: @<%= singular_table_name %> %>
 <div class="mt-5 pt-2 border-top border-secondary text-secondary">
-  <%= link_to "Show", @<%= singular_table_name %>, class: "link link-secondary" %> |
-  <%= link_to "Back", <%= plural_table_name %>_path, class: "link link-secondary" %>
+  <%%= link_to "Show", @<%= singular_table_name %>, class: "link link-secondary" %> |
+  <%%= link_to "Back", <%= plural_table_name %>_path, class: "link link-secondary" %>
 </div>
