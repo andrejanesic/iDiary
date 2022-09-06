@@ -1,9 +1,12 @@
 <tr id="<%= dom_id diary %>">
-  <th scope="row">
-    <%= diary.name %>
+  <td scope="row">
+    <span class="fw-bold"><%= diary.name %></span>
   </td>
   <td>
-    <%= link_to "See diary", diary, class: "link link-secondary" %><span class="text-secondary"> |</span>
-    <%= button_to "Destroy this diary", @diary, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+    <%= link_to "View", diary, class: "link link-secondary" %>
+    <span class="text-secondary"> |</span>
+    <%= link_to "Edit", edit_diary_path(diary), class: "link link-secondary" %>
+    <span class="text-secondary"> |</span>
+    <%= button_to "Delete", @diary, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
   </td>
 </tr>

@@ -1,0 +1,21 @@
+<%%= form_with(model: <%= model_resource_name %>) do |form| %>
+<%% if <%= singular_table_name %>.errors.any? %>
+<div class="p-3 mb-3 bg-warning">
+  <h2 class="h6 fw-bold"><%%= pluralize(<%= singular_table_name %>.errors.count, "error") %> prohibited this diary from being saved:</h2>
+  <ul class="mb-1">
+    <%% <%= singular_table_name %>.errors.each do |error| %>
+    <li><%%= error.full_message %></li>
+    <%% end %>
+  </ul>
+</div>
+<%% end %>
+<% attributes.each do |attribute| -%>
+  <div class="mb-2">
+    <%%= form.label :<%= attribute.column_name %>, class: "form-label d-block" %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
+  </div>
+<% end -%>
+<div>
+  <%%= form.submit class: 'btn btn-primary' %>
+</div>
+<%% end %>

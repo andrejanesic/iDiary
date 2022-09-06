@@ -1,0 +1,35 @@
+<p class="text-success mb-4"><%%= notice %></p>
+<div class="d-flex align-items-center justify-content-between">
+  <h2><%= plural_table_name.titleize %></h2>
+  <%%= link_to 'New <%= singular_table_name.titleize %>', new_<%= singular_route_name %>_path, class: "btn btn-primary" %>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <% attributes.reject(&:password?).each do |attribute| -%>
+        <th scope="col">
+          <%= attribute.human_name %>
+        </th>
+      <% end %>
+      <th scope="col">
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+    <tr class="group border-t border-gray-400 hover:bg-gray-100">
+      <% attributes.reject(&:password_digest?).each do |attribute| -%>
+        <td class="p-3"><%%= <%= singular_table_name %>.<%= attribute.column_name %> %></td>
+      <% end %>
+      <td>
+        <%%= link_to "View", <%= singular_table_name %>, class: "link link-secondary" %>
+        <span class="text-secondary"> |</span>
+        <%%= link_to "Edit", edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: "link link-danger" %>
+        <span class="text-secondary"> |</span>
+        <%%= button_to "Delete", @<%= singular_table_name %>, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+      </td>
+    </tr>
+    <%% end %>
+  </tbody>
+</table>
