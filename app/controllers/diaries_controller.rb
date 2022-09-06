@@ -1,5 +1,6 @@
 class DiariesController < ApplicationController
   before_action :set_diary, only: %i[show edit update destroy]
+  before_action :modify_params, only: %i[create update]
 
   # GET /diaries or /diaries.json
   def index
@@ -65,5 +66,10 @@ class DiariesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def diary_params
     params.require(:diary).permit(:name, :user_id)
+  end
+
+  # Modify to overwrite with current user id.
+  def modify_params
+    params[:diary][:user_id] = current_user.id
   end
 end
