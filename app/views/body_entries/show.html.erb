@@ -1,0 +1,65 @@
+<p class="text-success mb-4"><%= notice %></p>
+<h2>
+  <%= if @body_entry.name? %>
+  <%= @body_entry.name -%>
+  <% else %>
+  body_entry
+  <% end %>
+</h2>
+<div class="border-top border-bottom border-secondary py-2">
+  <%= link_to "Edit", edit_body_entry_path(@body_entry), class: "link link-primary" %> |
+  <%= link_to "See all", body_entries_path, class: "link link-secondary" %> | 
+  <%= button_to "Delete", @body_entry, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+</div>
+<table class="table table-striped">
+  <tbody>
+          <tr>
+        <td scope="row">
+          <span class="fw-bold">Weight</span>
+        </td>
+        <td>
+          <%= @body_entry.weight %>
+        </td>
+      </tr>
+          <tr>
+        <td scope="row">
+          <span class="fw-bold">Height</span>
+        </td>
+        <td>
+          <%= @body_entry.height %>
+        </td>
+      </tr>
+          <tr>
+        <td scope="row">
+          <span class="fw-bold">Fat mass</span>
+        </td>
+        <td>
+          <%= @body_entry.fat_mass %>
+        </td>
+      </tr>
+          <tr>
+        <td scope="row">
+          <span class="fw-bold">Muscle mass</span>
+        </td>
+        <td>
+          <%= @body_entry.muscle_mass %>
+        </td>
+      </tr>
+          <tr>
+        <td scope="row">
+          <span class="fw-bold">Note</span>
+        </td>
+        <td>
+          <%= @body_entry.note %>
+        </td>
+      </tr>
+          <tr>
+        <td scope="row">
+          <span class="fw-bold">Diary</span>
+        </td>
+        <td>
+          <%= @body_entry.diary %>
+        </td>
+      </tr>
+      </tbody>
+</table>
