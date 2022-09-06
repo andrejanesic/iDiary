@@ -1,14 +1,18 @@
 <p style="color: green"><%= notice %></p>
-
 <h1>Diaries</h1>
-
-<div id="diaries">
+<table id="diaries" class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">
+        Name
+      </th>
+      <th scope="col">
+        Actions
+      </th>
+    </tr>
+  </thead>
   <% @diaries.each do |diary| %>
     <%= render diary %>
-    <p>
-      <%= link_to "Show this diary", diary %>
-    </p>
   <% end %>
-</div>
-
-<%= link_to "New diary", new_diary_path %>
+</table>
+<%= link_to "New diary", new_diary_path, class: "btn btn-primary" %>

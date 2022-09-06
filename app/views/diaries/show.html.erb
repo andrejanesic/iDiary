@@ -1,10 +1,7 @@
 <p style="color: green"><%= notice %></p>
-
-<%= render @diary %>
-
+<h2><%= @diary.name %></h2>
 <div>
   <%= link_to "Edit this diary", edit_diary_path(@diary) %> |
-  <%= link_to "Back to diaries", diaries_path %>
-
-  <%= button_to "Destroy this diary", @diary, method: :delete %>
+  <%= link_to "Back to diaries", diaries_path, class: "link link-secondary" %> | 
+  <%= button_to "Destroy this diary", @diary, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
 </div>

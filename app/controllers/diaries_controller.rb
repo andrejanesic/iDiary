@@ -1,4 +1,5 @@
 class DiariesController < ApplicationController
+  layout 'app'
   before_action :set_diary, only: %i[show edit update destroy]
   before_action :modify_params, only: %i[create update]
 

@@ -1,4 +1,4 @@
 class PagesController < ApplicationController
-  layout 'container'
+  layout 'page'
   def home; end
 end

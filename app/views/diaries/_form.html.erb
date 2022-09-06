@@ -1,19 +1,19 @@
 <%= form_with(model: diary) do |form| %>
   <% if diary.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(diary.errors.count, "error") %> prohibited this diary from being saved:</h2>
-      <ul>
+    <div class="p-3 mb-3 bg-warning">
+      <h2 class="h6 fw-bold"><%= pluralize(diary.errors.count, "error") %> prohibited this diary from being saved:</h2>
+      <ul class="mb-1">
         <% diary.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-2">
+    <%= form.label :name, style: "display: block", class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
   <div>
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>
