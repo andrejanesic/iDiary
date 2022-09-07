@@ -44,7 +44,7 @@
   </div>
 <% else %>
   <div class="mb-2 form-check">
-    <%%= form.<%= atribute.field_type %> :<%= attribute.column_name %>, class: "form-check-input" type="checkbox" %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-check-input" type="checkbox" %>
     <%%= form.label :<%= attribute.column_name %>, class: "form-check-label" %>
   </div>
 <% end %>
