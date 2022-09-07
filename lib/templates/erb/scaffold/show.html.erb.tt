@@ -15,7 +15,11 @@
           <span class="fw-bold"><%= attribute.human_name %></span>
         </td>
         <td>
-          <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
+          <% if attribute.field_type == :checkbox %>
+            <input type="checkbox" class="form-control-checkbox" <%%= @<%= singular_table_name %>.<% attribute.name %> ? 'checked' : 'unchecked'%> disabled/>
+          <% else %>
+            <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
+          <% end %>
         </td>
       </tr>
     <% end -%>

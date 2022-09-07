@@ -21,7 +21,13 @@
     <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
     <tr>
       <% attributes.reject(&:password_digest?).each do |attribute| -%>
-        <td><%%= <%= singular_table_name %>.<%= attribute.column_name %> %></td>
+        <td>
+          <% if attribute.field_type == :checkbox %>
+            <input type="checkbox" class="form-control-checkbox" <%%= <%= singular_table_name %>.<% attribute.column_name %> ? 'checked' : 'unchecked'%> disabled/>
+          <% else %>
+            <%%= <%= singular_table_name %>.<%= attribute.column_name %> %>
+          <% end %>
+        </td>
       <% end %>
       <td>
         <%%= link_to "View", <%= singular_table_name %>, class: "link link-secondary" %>

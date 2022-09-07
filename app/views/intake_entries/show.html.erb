@@ -14,7 +14,7 @@
         <span class="fw-bold">Consumed</span>
       </td>
       <td>
-        <%= @intake_entry.consumed %>
+        <input type="checkbox" class="form-control-checkbox" <%= @intake_entry.consumed ? 'checked' : 'unchecked'%> disabled/>
       </td>
     </tr>
     <tr>

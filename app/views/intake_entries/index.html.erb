@@ -27,7 +27,7 @@
     <tbody>
       <% @intake_entries.each do |intake_entry| %>
         <tr>
-          <td><%= intake_entry.consumed %></td>
+          <td><input type="checkbox" class="form-control-checkbox" <%= intake_entry.consumed ? 'checked' : 'unchecked'%> disabled/></td>
           <td><%= intake_entry.note %></td>
           <td><%= intake_entry.timestamp %></td>
           <td><%= intake_entry.diary.name %></td>
