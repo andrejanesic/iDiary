@@ -51,6 +51,8 @@ class DiariesController < ApplicationController
     end
   end
 
+  # #TODO loophole here, if user has edit perms they can include their user_id
+  # and "steal" the object (transfer to their account)
   # PATCH/PUT /diaries/1 or /diaries/1.json
   def update
     if helpers.diary_user_permission(@diary.id, current_user.id) < DiariesHelper::PERMISSION_EDIT
@@ -102,6 +104,7 @@ class DiariesController < ApplicationController
     params.require(:diary).permit(:name, :user_id)
   end
 
+  #TODO what if creating for another user?
   # Modify to overwrite with current user id.
   def modify_params
     params[:diary][:user_id] = current_user.id

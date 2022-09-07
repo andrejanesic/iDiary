@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :goals
   resources :diary_shares
   resources :exercise_entries
   resources :intake_entries

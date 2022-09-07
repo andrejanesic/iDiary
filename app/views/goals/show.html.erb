@@ -1,0 +1,69 @@
+<p class="text-success mb-4"><%= notice %></p>
+<h2>
+  Goal
+</h2>
+<div class="border-top border-bottom border-secondary py-2 my-2">
+  <%= link_to "Edit", edit_goal_path(@goal), class: "link link-primary" %> |
+  <%= link_to "See all", goals_path, class: "link link-secondary" %> | 
+  <%= button_to "Delete", @goal, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+</div>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Active</span>
+      </td>
+      <td>
+        <input type="checkbox" class="form-control-checkbox" <%= @goal.active ? 'checked' : 'unchecked'%> disabled/>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Calories</span>
+      </td>
+      <td>
+        <%= @goal.calories %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Fats</span>
+      </td>
+      <td>
+        <%= @goal.fats %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Carbs</span>
+      </td>
+      <td>
+        <%= @goal.carbs %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Proteins</span>
+      </td>
+      <td>
+        <%= @goal.proteins %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Frequency</span>
+      </td>
+      <td>
+        <%= @goal.frequency %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">User</span>
+      </td>
+      <td>
+        <%= @goal.user.email %>
+      </td>
+    </tr>
+  </tbody>
+</table>

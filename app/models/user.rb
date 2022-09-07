@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :diaries, dependent: :destroy
   has_many :diary_shares, dependent: :destroy
+  has_many :goals, dependent: :destroy
 
   enum role: %i[user admin]
 end

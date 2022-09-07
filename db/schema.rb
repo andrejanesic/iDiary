@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_07_180709) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_07_213245) do
   create_table "body_entries", force: :cascade do |t|
     t.float "height"
     t.float "weight"
@@ -52,6 +52,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_180709) do
     t.index ["diary_id"], name: "index_exercise_entries_on_diary_id"
   end
 
+  create_table "goals", force: :cascade do |t|
+    t.boolean "active"
+    t.float "calories"
+    t.float "fats"
+    t.float "carbs"
+    t.float "proteins"
+    t.string "frequency"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_goals_on_user_id"
+  end
+
   create_table "intake_entries", force: :cascade do |t|
     t.boolean "consumed"
     t.text "note"
@@ -82,5 +95,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_180709) do
   add_foreign_key "diary_shares", "diaries"
   add_foreign_key "diary_shares", "users"
   add_foreign_key "exercise_entries", "diaries"
+  add_foreign_key "goals", "users"
   add_foreign_key "intake_entries", "diaries"
 end

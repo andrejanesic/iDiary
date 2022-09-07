@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  active: false
+  calories: 1.5
+  fats: 1.5
+  carbs: 1.5
+  proteins: 1.5
+  frequency: MyString
+  user: one
+
+two:
+  active: false
+  calories: 1.5
+  fats: 1.5
+  carbs: 1.5
+  proteins: 1.5
+  frequency: MyString
+  user: two
