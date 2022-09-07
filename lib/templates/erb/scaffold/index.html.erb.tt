@@ -42,7 +42,7 @@
 </table>
 <%% end %>
 <%%
-    if @<%= plural_table_name %> && @<%= plural_table_name %>_total > 0
+    if @<%= plural_table_name %> && (@<%= plural_table_name %>_total.is_a? Integer) && @<%= plural_table_name %>_total > 0
       d_id = params.has_key?(:diary_id) ? params[:diary_id] + '&' : ''
       from = params.has_key?(:from) ? params[:from].to_i : 0
       to = params.has_key?(:to) ? params[:to].to_i : 9
