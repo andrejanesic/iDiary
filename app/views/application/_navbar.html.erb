@@ -20,7 +20,10 @@
             <%= link_to "Exercises", exercise_entries_path, class:'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to "Sharing", diary_shares_path, class:'nav-link', data: { turbo_method: :delete } %>
+            <%= link_to "Sharing", diary_shares_path, class:'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "My Account", edit_user_registration_path, class:'nav-link' %>
           </li>
           <li class="nav-item">
             <%= link_to "Sign out", destroy_user_session_path, class:'nav-link', data: { turbo_method: :delete } %>

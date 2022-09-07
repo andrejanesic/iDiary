@@ -5,7 +5,7 @@
       <p class="lead mb-4">Track fitness, nutrition and health goals &mdash; easily. The only app you need to achieve ideal body composition, sleep, mental and physical wellbeing.</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <% if user_signed_in? %>
-          <%= link_to "My Dashboard", app_dashboard_path, class:'btn btn-primary btn-lg px-4' %>
+          <%= link_to "My Dashboard", diaries_path, class:'btn btn-primary btn-lg px-4' %>
         <% else %>
           <%= link_to "Start tracking now", new_user_registration_path, class:'btn btn-primary btn-lg px-4 gap-3' %>
           <%= link_to "My Dashboard", new_user_session_path, class:'btn btn-outline-secondary btn-lg px-4' %>
