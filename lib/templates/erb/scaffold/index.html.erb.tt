@@ -19,14 +19,14 @@
   </thead>
   <tbody>
     <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
-    <tr class="group border-t border-gray-400 hover:bg-gray-100">
+    <tr>
       <% attributes.reject(&:password_digest?).each do |attribute| -%>
-        <td class="p-3"><%%= <%= singular_table_name %>.<%= attribute.column_name %> %></td>
+        <td><%%= <%= singular_table_name %>.<%= attribute.column_name %> %></td>
       <% end %>
       <td>
         <%%= link_to "View", <%= singular_table_name %>, class: "link link-secondary" %>
         <span class="text-secondary"> |</span>
-        <%%= link_to "Edit", edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: "link link-danger" %>
+        <%%= link_to "Edit", edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: "link link-secondary" %>
         <span class="text-secondary"> |</span>
         <%%= button_to "Delete", @<%= singular_table_name %>, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
       </td>

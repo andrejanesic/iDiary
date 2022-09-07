@@ -1,4 +1,5 @@
 class Diary < ApplicationRecord
   belongs_to :user
-  validates :name, presence: true
+  has_many :body_entries, dependent: :destroy
+  validates :name, presence: true, length: { maximum: 50 }
 end

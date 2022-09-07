@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_06_120326) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_06_230241) do
+  create_table "body_entries", force: :cascade do |t|
+    t.float "height"
+    t.float "weight"
+    t.float "fat_mass"
+    t.float "muscle_mass"
+    t.text "note"
+    t.datetime "timestamp"
+    t.integer "diary_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["diary_id"], name: "index_body_entries_on_diary_id"
+  end
+
   create_table "diaries", force: :cascade do |t|
     t.string "name"
     t.integer "user_id", null: false
@@ -34,5 +47,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_06_120326) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "body_entries", "diaries"
   add_foreign_key "diaries", "users"
 end

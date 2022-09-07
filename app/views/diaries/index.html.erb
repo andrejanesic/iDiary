@@ -3,7 +3,7 @@
   <h2>Diaries</h2>
   <%= link_to 'New Diary', new_diary_path, class: "btn btn-primary" %>
 </div>
-<% if @diaries.exists? %>
+<% if @diaries %>
   <table class="table table-striped">
     <thead>
       <tr>

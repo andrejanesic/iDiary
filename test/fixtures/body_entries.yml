@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  height: 1.5
+  weight: 1.5
+  fat_mass: 1.5
+  muscle_mass: 1.5
+  note: MyText
+  timestamp: 2022-09-07 01:02:41
+  diary: one
+
+two:
+  height: 1.5
+  weight: 1.5
+  fat_mass: 1.5
+  muscle_mass: 1.5
+  note: MyText
+  timestamp: 2022-09-07 01:02:41
+  diary: two

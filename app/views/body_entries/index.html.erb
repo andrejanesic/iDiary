@@ -1,0 +1,59 @@
+<p class="text-success mb-4"><%= notice %></p>
+<div class="d-flex align-items-center justify-content-between">
+  <h2>Body Entries</h2>
+  <%= link_to 'New Body Entry', new_body_entry_path, class: "btn btn-primary" %>
+</div>
+<% if @body_entries %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">
+          Height
+        </th>
+        <th scope="col">
+          Weight
+        </th>
+        <th scope="col">
+          Fat mass
+        </th>
+        <th scope="col">
+          Muscle mass
+        </th>
+        <th scope="col">
+          Note
+        </th>
+        <th scope="col">
+          Timestamp
+        </th>
+        <th scope="col">
+          Diary
+        </th>
+        <th scope="col">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @body_entries.each do |body_entry| %>
+        <tr>
+          <td><%= body_entry.height %></td>
+          <td><%= body_entry.weight %></td>
+          <td><%= body_entry.fat_mass %></td>
+          <td><%= body_entry.muscle_mass %></td>
+          <td><%= body_entry.note %></td>
+          <td><%= body_entry.timestamp %></td>
+          <td><%= body_entry.diary_id %></td>
+          <td>
+            <%= link_to "View", body_entry, class: "link link-secondary" %>
+            <span class="text-secondary"> |</span>
+            <%= link_to "Edit", edit_body_entry_path(body_entry), class: "link link-secondary" %>
+            <span class="text-secondary"> |</span>
+            <%= button_to "Delete", @body_entry, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="mt-2 text-secondary">No body_entry created yet. Click New Body Entry to get started.</p>
+<% end %>
