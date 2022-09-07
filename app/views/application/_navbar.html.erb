@@ -8,10 +8,10 @@
       <ul class="navbar-nav">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to "Diaries", diaries_path, class:'nav-link', data: { turbo_method: :delete } %>
+            <%= link_to "Diaries", diaries_path, class:'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to "Body Entries", body_entries_path, class:'nav-link', data: { turbo_method: :delete } %>
+            <%= link_to "Body Entries", body_entries_path, class:'nav-link' %>
           </li>
           <li class="nav-item">
             <%= link_to "Sign out", destroy_user_session_path, class:'nav-link', data: { turbo_method: :delete } %>
