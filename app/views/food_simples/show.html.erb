@@ -3,11 +3,11 @@
   Food Simple
 </h2>
 <div class="border-top border-bottom border-secondary py-2 my-2">
-  <% if current_user.id == @food_simple.user_id %>
+  <% if current_user.id == @food_simple.user_id || current_user.role == 'admin' %>
     <%= link_to "Edit", edit_food_simple_path(@food_simple), class: "link link-primary" %> |
   <% end %>
   <%= link_to "See all", food_simples_path, class: "link link-secondary" %>
-  <% if current_user.id == @food_simple.user_id %> | 
+  <% if current_user.id == @food_simple.user_id || current_user.role == 'admin' %> | 
     <%= button_to "Delete", @food_simple, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
   <% end %>
 </div>
@@ -85,23 +85,21 @@
         <input type="checkbox" class="form-control-checkbox" <%= @food_simple.verified ? 'checked' : 'unchecked'%> disabled/>
       </td>
     </tr>
-    <tr>
       <% if current_user.id == @food_simple.user_id %>
+    <tr>
         <td scope="row">
           <span class="fw-bold">Public</span>
         </td>
         <td>
           <input type="checkbox" class="form-control-checkbox" <%= @food_simple.public ? 'checked' : 'unchecked'%> disabled/>
         </td>
-      <% end %>
     </tr>
-    <% if current_user.id == @food_simple.user_id %>
       <tr>
         <td scope="row">
-          <span class="fw-bold">User</span>
+          <span class="fw-bold">Added by</span>
         </td>
         <td>
-          My food
+          Me
         </td>
       </tr>
     <% end %>

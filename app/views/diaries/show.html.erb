@@ -7,6 +7,7 @@
     <%= link_to "Exercises", exercise_entries_path(:from => "6", :to=>"0", :diary_id => @diary.id), class: "link link-primary" %>
   </div>
   <div>
+    <% #TODO permission-based buttons everywhere (intake, exercise, fitness, ...) %>
     <%= link_to "Edit", edit_diary_path(@diary), class: "link link-primary" %> |
     <%= link_to "Sharing", diary_shares_path, class: "link link-secondary" %> | 
     <%= button_to "Delete diary", @diary, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>

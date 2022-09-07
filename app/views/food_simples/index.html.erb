@@ -32,7 +32,7 @@
           Description
         </th>
         <th scope="col">
-          User
+          Added by
         </th>
         <th scope="col">
           Actions
@@ -69,12 +69,12 @@
           </td>
           <td>
             <% if current_user.id == food_simple.user_id %>
-              My food
+              Me
             <% end %>
           </td>
           <td>
             <%= link_to "View", food_simple, class: "link link-secondary" %>
-            <% if current_user.id == food_simple.user_id %>
+            <% if current_user.id == food_simple.user_id || current_user.role == 'admin' %>
               <span class="text-secondary"> |</span>
               <%= link_to "Edit", edit_food_simple_path(food_simple), class: "link link-secondary" %>
               <span class="text-secondary"> |</span>

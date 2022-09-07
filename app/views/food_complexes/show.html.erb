@@ -1,0 +1,60 @@
+<p class="text-success mb-4"><%= notice %></p>
+<h2>
+  Food Complex
+</h2>
+<div class="border-top border-bottom border-secondary py-2 my-2">
+  <% if current_user.id == @food_complex.user_id || current_user.role == 'admin' %>
+    <%= link_to "Edit", edit_food_complex_path(@food_complex), class: "link link-primary" %> |
+  <% end %>
+  <%= link_to "See all", food_complexes_path, class: "link link-secondary" %>
+  <% if current_user.id == @food_complex.user_id || current_user.role == 'admin' %> | 
+    <%= button_to "Delete", @food_complex, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+  <% end %>
+</div>
+<table class="table table-striped">
+  <tbody>
+    <% #TODO this should also include rows for dynamically-calculated nuntrients%>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Name</span>
+      </td>
+      <td>
+        <%= @food_complex.name %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Description</span>
+      </td>
+      <td>
+        <%= @food_complex.description %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Verified</span>
+      </td>
+      <td>
+        <input type="checkbox" class="form-control-checkbox" <%= @food_complex.verified ? 'checked' : 'unchecked'%> disabled/>
+      </td>
+    </tr>
+    <% if current_user.id == @food_complex.user_id %>
+      <tr>
+        <td scope="row">
+          <span class="fw-bold">Public</span>
+        </td>
+        <td>
+          <input type="checkbox" class="form-control-checkbox" <%= @food_complex.public ? 'checked' : 'unchecked'%> disabled/>
+        </td>
+      </tr>
+      <tr>
+        <td scope="row">
+          <span class="fw-bold">Added by</span>
+        </td>
+        <td>
+          Me
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

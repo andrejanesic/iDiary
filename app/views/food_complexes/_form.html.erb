@@ -1,0 +1,37 @@
+<%= form_with(model: food_complex) do |form| %>
+  <% if food_complex.errors.any? %>
+    <div class="p-3 mb-3 bg-warning">
+      <h2 class="h6 fw-bold"><%= pluralize(food_complex.errors.count, "error") %> prohibited this diary from being saved:</h2>
+      <ul class="mb-1">
+        <% food_complex.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="mb-2">
+    <%= form.label :name, class: "form-label d-block" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+  <div class="mb-2">
+    <%= form.label :description, class: "form-label d-block" %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+  <div class="mb-2 form-check">
+    <%= form.check_box :template, class: "form-check-input", type: "checkbox" %>
+    <%= form.label :template, class: "form-check-label" %>
+  </div>
+  <% if current_user.role == 'admin' %>
+    <div class="mb-2 form-check">
+      <%= form.check_box :verified, class: "form-check-input", type: "checkbox" %>
+      <%= form.label :verified, class: "form-check-label" %>
+    </div>
+  <% end%>
+  <div class="mb-2 form-check">
+    <%= form.check_box :public, class: "form-check-input", type: "checkbox" %>
+    <%= form.label :public, class: "form-check-label" %>
+  </div>
+  <div>
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>
