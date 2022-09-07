@@ -4,62 +4,52 @@
   <%= link_to 'New Exercise Entry', new_exercise_entry_path, class: "btn btn-primary" %>
 </div>
 <% if @exercise_entries && @exercise_entries.length > 0 %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-              <th scope="col">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">
           Complete
         </th>
-              <th scope="col">
+        <th scope="col">
           Note
         </th>
-              <th scope="col">
+        <th scope="col">
           Timestamp
         </th>
-              <th scope="col">
+        <th scope="col">
           Diary
         </th>
-      
-      <th scope="col">
-        Actions
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @exercise_entries.each do |exercise_entry| %>
-    <tr>
-              <td>
-          
+        <th scope="col">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @exercise_entries.each do |exercise_entry| %>
+        <tr>
+          <td>
             <%= exercise_entry.complete %>
-          
-        </td>
-              <td>
-          
+          </td>
+          <td>
             <%= exercise_entry.note %>
-          
-        </td>
-              <td>
-          
+          </td>
+          <td>
             <%= exercise_entry.timestamp %>
-          
-        </td>
-              <td>
-          
+          </td>
+          <td>
             <%= exercise_entry.diary_id %>
-          
-        </td>
-      
-      <td>
-        <%= link_to "View", exercise_entry, class: "link link-secondary" %>
-        <span class="text-secondary"> |</span>
-        <%= link_to "Edit", edit_exercise_entry_path(exercise_entry), class: "link link-secondary" %>
-        <span class="text-secondary"> |</span>
-        <%= button_to "Delete", @exercise_entry, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+          </td>
+          <td>
+            <%= link_to "View", exercise_entry, class: "link link-secondary" %>
+            <span class="text-secondary"> |</span>
+            <%= link_to "Edit", edit_exercise_entry_path(exercise_entry), class: "link link-secondary" %>
+            <span class="text-secondary"> |</span>
+            <%= button_to "Delete", @exercise_entry, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>
 <%
     if @exercise_entries && (@exercise_entries_total.is_a? Integer) && @exercise_entries_total > 0
@@ -82,6 +72,6 @@
   </nav>
 </div>
 <% end %>
-<% if (!@exercise_entries && !@exercise_entries_total) || (@exercise_entries.length == 0 && @exercise_entries_total == 0) %>
+<% if (!@exercise_entries || (@exercise_entries && @exercise_entries.length)) && (!@exercise_entries_total || (@exercise_entries_total && @exercise_entries_total == 0)) %>
   <p class="mt-2 text-secondary">No Exercise Entry created yet. Click New Exercise Entry to get started.</p>
 <% end %>

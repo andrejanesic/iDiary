@@ -90,6 +90,10 @@
   </nav>
 </div>
 <% end %>
-<% if (!@goals && !@goals_total) || (@goals.length == 0 && @goals_total == 0) %>
+<% puts 'amhere' %>
+<% puts @goals %>
+<% puts @goals_total
+%>
+<% if (!@goals || (@goals && @goals.length)) && (!@goals_total || (@goals_total && @goals_total == 0)) %>
   <p class="mt-2 text-secondary">No Goal created yet. Click New Goal to get started.</p>
 <% end %>

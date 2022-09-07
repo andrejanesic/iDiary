@@ -75,6 +75,6 @@
   </nav>
 </div>
 <% end %>
-<% if (!@diary_shares && !@diary_shares_total) || (@diary_shares.length == 0 && @diary_shares_total == 0) %>
+<% if (!@diary_shares || (@diary_shares && @diary_shares.length)) && (!@diary_shares_total || (@diary_shares_total && @diary_shares_total == 0)) %>
   <p class="mt-2 text-secondary">No Diary Share created yet. Click New Diary Share to get started.</p>
 <% end %>
