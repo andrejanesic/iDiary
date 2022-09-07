@@ -1,0 +1,6 @@
+<h2>Editing Exercise Entry</h2>
+<%= render "form", exercise_entry: @exercise_entry %>
+<div class="mt-5 pt-2 border-top border-secondary text-secondary">
+  <%= link_to "Show", @exercise_entry, class: "link link-secondary" %> |
+  <%= link_to "Back", exercise_entries_path, class: "link link-secondary" %>
+</div>

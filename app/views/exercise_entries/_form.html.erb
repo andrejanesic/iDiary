@@ -1,0 +1,40 @@
+<%= form_with(model: exercise_entry) do |form| %>
+<% if exercise_entry.errors.any? %>
+<div class="p-3 mb-3 bg-warning">
+  <h2 class="h6 fw-bold"><%= pluralize(exercise_entry.errors.count, "error") %> prohibited this diary from being saved:</h2>
+  <ul class="mb-1">
+    <% exercise_entry.errors.each do |error| %>
+    <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+  
+  <div class="mb-2 form-check">
+    <%= form.check_box :complete, class: "form-check-input", type: "checkbox" %>
+    <%= form.label :complete, class: "form-check-label" %>
+  </div>
+  
+  
+  <div class="mb-2">
+    <%= form.label :note, class: "form-label d-block" %>
+    <%= form.text_area :note, class: "form-control" %>
+  </div>
+
+  
+  <div class="mb-2">
+    <%= form.label :timestamp, class: "form-label d-block" %>
+    <%= form.datetime_field :timestamp, class: "form-control", placeholder: "YYYY-MM-DDTHH:MM:SS",
+    pattern: "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}" %>
+  </div>
+  
+  
+  <div class="mb-2">
+    <%= form.label :diary_id, class: "form-label d-block" %>
+    <%= form.text_field :diary_id, class: "form-control" %>
+  </div>
+
+<div>
+  <%= form.submit class: 'btn btn-primary' %>
+</div>
+<% end %>
