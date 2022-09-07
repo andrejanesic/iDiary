@@ -23,13 +23,7 @@
           Proteins
         </th>
         <th scope="col">
-          Is drink
-        </th>
-        <th scope="col">
           Amount
-        </th>
-        <th scope="col">
-          Verified
         </th>
         <th scope="col">
           Public
@@ -49,7 +43,7 @@
       <% @food_simples.each do |food_simple| %>
         <tr>
           <td>
-            <%= food_simple.name %>
+            <%= food_simple.is_drink ? '🥤' : '🍲' %> <%= food_simple.name %> <%= food_simple.verified ? '✅' : '' %>
           </td>
           <td>
             <%= food_simple.calories %>
@@ -64,12 +58,7 @@
             <%= food_simple.proteins %>
           </td>
           <td>
-            <input type="checkbox" class="form-control-checkbox" <%= food_simple.is_drink ? 'checked' : 'unchecked'%> disabled/>
-          </td>
-          <td>
             <%= food_simple.amount %>
-          </td>
-          <td><input type="checkbox" class="form-control-checkbox" <%= food_simple.verified ? 'checked' : 'unchecked'%> disabled/>
           </td>
           <td>
             <% #TODO bad ux, we should hide public from users who didn't create this food%>
@@ -118,6 +107,6 @@
   </nav>
 </div>
 <% end %>
-<% if (!@food_simples || (@food_simples && @food_simples.length)) && (!@food_simples_total || (@food_simples_total && @food_simples_total == 0)) %>
+<% if (!@food_simples || (@food_simples && @food_simples.length == 0)) && (!@food_simples_total || (@food_simples_total && @food_simples_total == 0)) %>
   <p class="mt-2 text-secondary">No Food Simple created yet. Click New Food Simple to get started.</p>
 <% end %>

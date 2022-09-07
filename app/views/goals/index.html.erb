@@ -62,7 +62,7 @@
             <span class="text-secondary"> |</span>
             <%= link_to "Edit", edit_goal_path(goal), class: "link link-secondary" %>
             <span class="text-secondary"> |</span>
-            <%= button_to "Delete", @goal, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+            <%= button_to "Delete", goal, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
           </td>
         </tr>
       <% end %>
@@ -94,6 +94,6 @@
 <% puts @goals %>
 <% puts @goals_total
 %>
-<% if (!@goals || (@goals && @goals.length)) && (!@goals_total || (@goals_total && @goals_total == 0)) %>
+<% if (!@goals || (@goals && @goals.length == 0)) && (!@goals_total || (@goals_total && @goals_total == 0)) %>
   <p class="mt-2 text-secondary">No Goal created yet. Click New Goal to get started.</p>
 <% end %>

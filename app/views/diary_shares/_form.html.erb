@@ -12,25 +12,25 @@
   <div class="mb-2">
     <%= form.label :permission, class: "form-label d-block" %>
     <select id="diary_share_permission" name="diary_share[permission]" class="form-select">
-      <option selected value="0">Revoke permission</option>
-      <option value="1">View diary</option>
-      <option value="2">Edit diary</option>
-      <option value="3">Full diary ownership</option>
+      <option <%= (@diary_share && @diary_share.permission == 0) ? 'selected' : ''%> value="0">Revoke permission</option>
+      <option <%= (@diary_share && @diary_share.permission == 1) ? 'selected' : ''%> value="1">View diary</option>
+      <option <%= (@diary_share && @diary_share.permission == 2) ? 'selected' : ''%> value="2">Edit diary</option>
+      <option <%= (@diary_share && @diary_share.permission == 3) ? 'selected' : ''%> value="3">Full diary ownership</option>
     </select>
   </div>
   <div class="mb-2">
     <%= form.label :diary, class: "form-label d-block" %>
     <select id="diary_share_diary_id" name="diary_share[diary_id]" class="form-select">
       <% Diary.where(user_id: current_user.id).each do |d|-%>
-        <option value="<%=d.id %>"><%= d.name %></option>
-      <% end -%>
-    </select>
-  </div>
-  <div class="mb-2">
-    <%= form.label :user_id, class: "form-label d-block" %>
-    <%= form.text_field :user_id, class: "form-control" %>
-  </div>
-  <div>
-    <%= form.submit class: 'btn btn-primary' %>
-  </div>
-<% end %>
+        <option value="<%=d.id %>" <%= (@diary_share && @diary_share.diary_id == d.id) ? 'selected' : ''%>><%= d.name %></option>
+        <% end -%>
+      </select>
+    </div>
+    <div class="mb-2">
+      <%= form.label :user_id, class: "form-label d-block" %>
+      <%= form.text_field :user_id, class: "form-control" %>
+    </div>
+    <div>
+      <%= form.submit class: 'btn btn-primary' %>
+    </div>
+  <% end %>

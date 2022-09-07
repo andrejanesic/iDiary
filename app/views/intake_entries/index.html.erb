@@ -36,7 +36,7 @@
             <span class="text-secondary"> |</span>
             <%= link_to "Edit", edit_intake_entry_path(intake_entry), class: "link link-secondary" %>
             <span class="text-secondary"> |</span>
-            <%= button_to "Delete", @intake_entry, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+            <%= button_to "Delete", intake_entry, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
           </td>
         </tr>
       <% end %>
@@ -64,6 +64,6 @@
   </nav>
 </div>
 <% end %>
-<% if (!@intake_entries || (@intake_entries && @intake_entries.length)) && (!@intake_entries_total || (@intake_entries_total && @intake_entries_total == 0)) %>
+<% if (!@intake_entries || (@intake_entries && @intake_entries.length == 0)) && (!@intake_entries_total || (@intake_entries_total && @intake_entries_total == 0)) %>
   <p class="mt-2 text-secondary">No Intake Entry created yet. Click New Intake Entry to get started.</p>
 <% end %>

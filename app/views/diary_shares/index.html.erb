@@ -43,11 +43,17 @@
           <%= diary_share.diary.name %>
         </td>
         <td>
-          <%= link_to "View", diary_share, class: "link link-secondary" %>
-          <span class="text-secondary"> |</span>
-          <%= link_to "Edit", edit_diary_share_path(diary_share), class: "link link-secondary" %>
-          <span class="text-secondary"> |</span>
-          <%= button_to "Delete", @diary_share, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+          <% if diary_user_permission(diary_share.diary_id, current_user.id) >= DiariesHelper::PERMISSION_READONLY %>
+            <%= link_to "View", diary_share, class: "link link-secondary" %>
+          <% end %>
+          <% if diary_user_permission(diary_share.diary_id, current_user.id) >= DiariesHelper::PERMISSION_EDIT %>
+            <span class="text-secondary"> |</span>
+            <%= link_to "Edit", edit_diary_share_path(diary_share), class: "link link-secondary" %>
+          <% end %>
+          <% if diary_user_permission(diary_share.diary_id, current_user.id) >= DiariesHelper::PERMISSION_OWNERSHIP %>
+            <span class="text-secondary"> |</span>
+            <%= button_to "Delete", diary_share, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+          <% end %>
         </td>
       </tr>
     <% end %>
@@ -75,6 +81,6 @@
   </nav>
 </div>
 <% end %>
-<% if (!@diary_shares || (@diary_shares && @diary_shares.length)) && (!@diary_shares_total || (@diary_shares_total && @diary_shares_total == 0)) %>
+<% if (!@diary_shares || (@diary_shares && @diary_shares.length == 0)) && (!@diary_shares_total || (@diary_shares_total && @diary_shares_total == 0)) %>
   <p class="mt-2 text-secondary">No Diary Share created yet. Click New Diary Share to get started.</p>
 <% end %>
