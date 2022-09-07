@@ -11,17 +11,17 @@
 <%% end %>
 <% attributes.each do |attribute| -%>
   <% case attribute.field_type
-        when "boolean" %>
+        when "check_box" %>
   <div class="mb-2 form-check">
     <%%= form.<%= atribute.field_type %> :<%= attribute.column_name %>, class: "form-check-input", type: "checkbox" %>
     <%%= form.label :<%= attribute.column_name %>, class: "form-check-label" %>
   </div>
-  <% when "date" %>
+  <% when "date_field" %>
   <div class="mb-2">
     <%%= form.label :<%= attribute.column_name %>, class: "form-label d-block" %>
     <%%= form.<%= atribute.field_type %> :<%= attribute.column_name %>, class: "form-control", placeholder: "YYYY-MM-DD", pattern: "\\d{4}-\\d{2}-\\d{2}" %>
   </div>
-  <% when "datetime", "timestamp" %>
+  <% when "datetime_field" %>
   <div class="mb-2">
     <%%= form.label :<%= attribute.column_name %>, class: "form-label d-block" %>
     <%%= form.<%= atribute.field_type %> :<%= attribute.column_name %>, class: "form-control", placeholder: "YYYY-MM-DDTHH:MM:SS",
@@ -43,9 +43,9 @@
     <%%= form.<%= atribute.field_type %> :<%= attribute.column_name %>, class: "form-control", placeholder: "HH:MM:SS", pattern: "\\d{2}:\\d{2}(:\\d{2})?" %>
   </div>
 <% else %>
-  <div class="mb-2 form-check">
-    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-check-input" type="checkbox" %>
-    <%%= form.label :<%= attribute.column_name %>, class: "form-check-label" %>
+  <div class="mb-2">
+    <%%= form.label :<%= attribute.column_name %>, class: "form-label d-block" %>
+    <%%= form.<%= atribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
   </div>
 <% end %>
 <% end -%>
