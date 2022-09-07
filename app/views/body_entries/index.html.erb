@@ -1,7 +1,7 @@
 <p class="text-success mb-4"><%= notice %></p>
 <div class="d-flex align-items-center justify-content-between">
-  <h2>Body Entries</h2>
-  <%= link_to 'New Body Entry', new_body_entry_path, class: "btn btn-primary" %>
+  <h2>Fitness Entries</h2>
+  <%= link_to 'New Fitness Entry', new_body_entry_path, class: "btn btn-primary" %>
 </div>
 <% if @body_entries %>
   <table class="table table-striped">
@@ -42,7 +42,7 @@
           <td><%= body_entry.muscle_mass %></td>
           <td><%= body_entry.note %></td>
           <td><%= body_entry.timestamp %></td>
-          <td><%= body_entry.diary_id %></td>
+          <td><%= body_entry.diary.name %></td>
           <td>
             <%= link_to "View", body_entry, class: "link link-secondary" %>
             <span class="text-secondary"> |</span>
@@ -55,5 +55,5 @@
     </tbody>
   </table>
 <% else %>
-  <p class="mt-2 text-secondary">No body_entry created yet. Click New Body Entry to get started.</p>
+  <p class="mt-2 text-secondary">No body_entry created yet. Click New Fitness Entry to get started.</p>
 <% end %>

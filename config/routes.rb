@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # TODO this should be renamed to fitness_entries
   resources :body_entries
   resources :diaries
   get 'app/dashboard'

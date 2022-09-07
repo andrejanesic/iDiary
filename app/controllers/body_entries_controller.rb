@@ -50,7 +50,7 @@ class BodyEntriesController < ApplicationController
 
       respond_to do |format|
         if @body_entry.save
-          format.html { redirect_to body_entry_url(@body_entry), notice: 'Body entry was successfully created.' }
+          format.html { redirect_to body_entry_url(@body_entry), notice: 'Fitness entry was successfully created.' }
           format.json { render :show, status: :created, location: @body_entry }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -73,7 +73,7 @@ class BodyEntriesController < ApplicationController
 
       respond_to do |format|
         if @body_entry.update(body_entry_params)
-          format.html { redirect_to body_entry_url(@body_entry), notice: 'Body entry was successfully updated.' }
+          format.html { redirect_to body_entry_url(@body_entry), notice: 'Fitness entry was successfully updated.' }
           format.json { render :show, status: :ok, location: @body_entry }
         else
           format.html { render :edit, status: :unprocessable_entity }
@@ -95,7 +95,7 @@ class BodyEntriesController < ApplicationController
       @body_entry.destroy
 
       respond_to do |format|
-        format.html { redirect_to body_entries_url, notice: 'Body entry was successfully destroyed.' }
+        format.html { redirect_to body_entries_url, notice: 'Fitness entry was successfully destroyed.' }
         format.json { head :no_content }
       end
     end
