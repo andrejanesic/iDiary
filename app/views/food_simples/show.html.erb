@@ -1,0 +1,109 @@
+<p class="text-success mb-4"><%= notice %></p>
+<h2>
+  Food Simple
+</h2>
+<div class="border-top border-bottom border-secondary py-2 my-2">
+  <% if current_user.id == @food_simple.user_id %>
+    <%= link_to "Edit", edit_food_simple_path(@food_simple), class: "link link-primary" %> |
+  <% end %>
+  <%= link_to "See all", food_simples_path, class: "link link-secondary" %>
+  <% if current_user.id == @food_simple.user_id %> | 
+    <%= button_to "Delete", @food_simple, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+  <% end %>
+</div>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Name</span>
+      </td>
+      <td>
+        <%= @food_simple.name %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Description</span>
+      </td>
+      <td>
+        <%= @food_simple.description %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Calories</span>
+      </td>
+      <td>
+        <%= @food_simple.calories %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Fats</span>
+      </td>
+      <td>
+        <%= @food_simple.fats %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Carbs</span>
+      </td>
+      <td>
+        <%= @food_simple.carbs %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Proteins</span>
+      </td>
+      <td>
+        <%= @food_simple.proteins %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Is drink</span>
+      </td>
+      <td>
+        <input type="checkbox" class="form-control-checkbox" <%= @food_simple.is_drink ? 'checked' : 'unchecked'%> disabled/>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Amount</span>
+      </td>
+      <td>
+        <%= @food_simple.amount %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Verified</span>
+      </td>
+      <td>
+        <input type="checkbox" class="form-control-checkbox" <%= @food_simple.verified ? 'checked' : 'unchecked'%> disabled/>
+      </td>
+    </tr>
+    <tr>
+      <% if current_user.id == @food_simple.user_id %>
+        <td scope="row">
+          <span class="fw-bold">Public</span>
+        </td>
+        <td>
+          <input type="checkbox" class="form-control-checkbox" <%= @food_simple.public ? 'checked' : 'unchecked'%> disabled/>
+        </td>
+      <% end %>
+    </tr>
+    <% if current_user.id == @food_simple.user_id %>
+      <tr>
+        <td scope="row">
+          <span class="fw-bold">User</span>
+        </td>
+        <td>
+          My food
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
