@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :diaries, dependent: :destroy
+  has_many :diary_shares, dependent: :destroy
 
   enum role: %i[user admin]
 end

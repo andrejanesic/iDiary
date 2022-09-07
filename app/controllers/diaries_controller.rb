@@ -2,7 +2,7 @@ class DiariesController < ApplicationController
   layout 'app'
   before_action :authenticate_user!
   before_action :set_diary, only: %i[show edit update destroy]
-  before_action :modify_params, only: %i[create update]
+  before_action :modify_params, only: %i[create]
 
   # GET /diaries or /diaries.json
   def index
@@ -11,9 +11,9 @@ class DiariesController < ApplicationController
 
   # GET /diaries/1 or /diaries/1.json
   def show
-    unless helpers.diary_belongs_to_user(@diary.id, current_user.id)
+    unless helpers.diary_user_permission(@diary.id, current_user.id) >= DiariesHelper::PERMISSION_READONLY
       respond_to do |format|
-        @diary.errors.add(:diary, 'does not belong to this user.')
+        @diary.errors.add(:diary, 'is not shared with you.')
         format.html { render :index, status: :unprocessable_entity }
         format.json { render json: @diary.errors, status: :unprocessable_entity }
       end
@@ -27,9 +27,9 @@ class DiariesController < ApplicationController
 
   # GET /diaries/1/edit
   def edit
-    unless helpers.diary_belongs_to_user(@diary.id, current_user.id)
+    unless helpers.diary_user_permission(@diary.id, current_user.id) >= DiariesHelper::PERMISSION_EDIT
       respond_to do |format|
-        @diary.errors.add(:diary, 'does not belong to this user.')
+        @diary.errors.add(:diary, 'is not shared with you.')
         format.html { render :index, status: :unprocessable_entity }
         format.json { render json: @diary.errors, status: :unprocessable_entity }
       end
@@ -53,9 +53,9 @@ class DiariesController < ApplicationController
 
   # PATCH/PUT /diaries/1 or /diaries/1.json
   def update
-    if !helpers.diary_belongs_to_user(@diary.id, current_user.id)
+    if helpers.diary_user_permission(@diary.id, current_user.id) < DiariesHelper::PERMISSION_EDIT
       respond_to do |format|
-        @diary.errors.add(:diary, 'does not belong to this user.')
+        @diary.errors.add(:diary, 'is not shared with you.')
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @diary.errors, status: :unprocessable_entity }
       end
@@ -74,9 +74,9 @@ class DiariesController < ApplicationController
 
   # DELETE /diaries/1 or /diaries/1.json
   def destroy
-    if !helpers.diary_belongs_to_user(@diary.id, current_user.id)
+    if helpers.diary_user_permission(@diary.id, current_user.id) < DiariesHelper::PERMISSION_OWNERSHIP
       respond_to do |format|
-        @diary.errors.add(:diary, 'does not belong to this user.')
+        @diary.errors.add(:diary, 'is not shared with you.')
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @diary.errors, status: :unprocessable_entity }
       end

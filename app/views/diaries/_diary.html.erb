@@ -7,6 +7,8 @@
     <span class="text-secondary"> |</span>
     <%= link_to "Edit", edit_diary_path(diary), class: "link link-secondary" %>
     <span class="text-secondary"> |</span>
+    <%= link_to "Sharing", diary_shares_path, class: "link link-secondary" %>
+    <span class="text-secondary"> |</span>
     <%= button_to "Delete", @diary, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
   </td>
 </tr>

@@ -26,7 +26,8 @@ class IntakeEntriesController < ApplicationController
     end
 
     d_id = if params[:diary_id] && params[:diary_id].to_i >= 0 &&
-              helpers.diary_belongs_to_user(params[:diary_id].to_i, current_user.id)
+              helpers.diary_user_permission(params[:diary_id].to_i,
+                                            current_user.id) >= DiariesHelper::PERMISSION_READONLY
              params[:diary_id]
            else
              Diary.where(user_id: current_user.id).pluck(:id)
@@ -52,9 +53,9 @@ class IntakeEntriesController < ApplicationController
 
   # GET /intake_entries/1 or /intake_entries/1.json
   def show
-    unless helpers.diary_belongs_to_user(@intake_entry.diary_id, current_user.id)
+    unless helpers.diary_user_permission(@intake_entry.diary_id, current_user.id) >= DiariesHelper::PERMISSION_READONLY
       respond_to do |format|
-        @intake_entry.errors.add(:diary, 'does not belong to this user.')
+        @intake_entry.errors.add(:diary, 'is not shared with you.')
         format.html { render :index, status: :unprocessable_entity }
         format.json { render json: @intake_entry.errors, status: :unprocessable_entity }
       end
@@ -68,9 +69,9 @@ class IntakeEntriesController < ApplicationController
 
   # GET /intake_entries/1/edit
   def edit
-    unless helpers.diary_belongs_to_user(@intake_entry.diary_id, current_user.id)
+    unless helpers.diary_user_permission(@intake_entry.diary_id, current_user.id) >= DiariesHelper::PERMISSION_EDIT
       respond_to do |format|
-        @intake_entry.errors.add(:diary, 'does not belong to this user.')
+        @intake_entry.errors.add(:diary, 'is not shared with you.')
         format.html { render :index, status: :unprocessable_entity }
         format.json { render json: @intake_entry.errors, status: :unprocessable_entity }
       end
@@ -80,8 +81,8 @@ class IntakeEntriesController < ApplicationController
   # POST /intake_entries or /intake_entries.json
   def create
     @intake_entry = IntakeEntry.new(intake_entry_params)
-    if !helpers.diary_belongs_to_user(@intake_entry.diary_id, current_user.id)
-      @intake_entry.errors.add(:diary, 'does not belong to this user.')
+    if helpers.diary_user_permission(@intake_entry.diary_id, current_user.id) < DiariesHelper::PERMISSION_EDIT
+      @intake_entry.errors.add(:diary, 'is not shared with you.')
       respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @intake_entry.errors, status: :unprocessable_entity }
@@ -102,9 +103,9 @@ class IntakeEntriesController < ApplicationController
 
   # PATCH/PUT /intake_entries/1 or /intake_entries/1.json
   def update
-    if !helpers.diary_belongs_to_user(@intake_entry.diary_id, current_user.id)
+    if helpers.diary_user_permission(@intake_entry.diary_id, current_user.id) < DiariesHelper::PERMISSION_EDIT
       respond_to do |format|
-        @intake_entry.errors.add(:diary, 'does not belong to this user.')
+        @intake_entry.errors.add(:diary, 'is not shared with you.')
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @intake_entry.errors, status: :unprocessable_entity }
       end
@@ -123,9 +124,9 @@ class IntakeEntriesController < ApplicationController
 
   # DELETE /intake_entries/1 or /intake_entries/1.json
   def destroy
-    if !helpers.diary_belongs_to_user(@intake_entry.diary_id, current_user.id)
+    if helpers.diary_user_permission(@intake_entry.diary_id, current_user.id) < DiariesHelper::PERMISSION_OWNERSHIP
       respond_to do |format|
-        @intake_entry.errors.add(:diary, 'does not belong to this user.')
+        @intake_entry.errors.add(:diary, 'is not shared with you.')
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @intake_entry.errors, status: :unprocessable_entity }
       end

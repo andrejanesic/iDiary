@@ -1,0 +1,2 @@
+module DiarySharesHelper
+end

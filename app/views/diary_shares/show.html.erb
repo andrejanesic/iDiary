@@ -1,0 +1,46 @@
+<p class="text-success mb-4"><%= notice %></p>
+<h2>
+  Diary Share
+</h2>
+<div class="border-top border-bottom border-secondary py-2 my-2">
+  <%= link_to "Edit", edit_diary_share_path(@diary_share), class: "link link-primary" %> |
+  <%= link_to "See all", diary_shares_path, class: "link link-secondary" %> | 
+  <%= button_to "Delete", @diary_share, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+</div>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Permission</span>
+      </td>
+      <td>
+        <% case @diary_share.permission
+            when 0 -%>
+        No permission
+        <% when 1 %>
+        Can view diary
+        <% when 2 %>
+        Can edit diary
+      <% else %>
+        Full diary ownership
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td scope="row">
+      <span class="fw-bold">Diary</span>
+    </td>
+    <td>
+      <%= @diary_share.diary.name %>
+    </td>
+  </tr>
+  <tr>
+    <td scope="row">
+      <span class="fw-bold">User</span>
+    </td>
+    <td>
+      <%= @diary_share.user.email %>
+    </td>
+  </tr>
+</tbody>
+</table>

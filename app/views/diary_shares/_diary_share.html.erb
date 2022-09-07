@@ -1,0 +1,23 @@
+<div id="<%= dom_id diary_share %>">
+  <p>
+    <strong>Permission:</strong>
+    <% case diary_share.permission
+            when 0 -%>
+    No permission
+    <% when 1 %>
+    Can view diary
+    <% when 2 %>
+    Can edit diary
+  <% else %>
+    Full diary ownership
+  <% end %>
+</p>
+<p>
+  <strong>Diary:</strong>
+  <%= diary_share.diary.name %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%= diary_share.user.email %>
+</p>
+</div>

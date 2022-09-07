@@ -1,0 +1,80 @@
+<p class="text-success mb-4"><%= notice %></p>
+<div class="d-flex align-items-center justify-content-between">
+  <h2>Diary Shares</h2>
+  <%= link_to 'New Diary Share', new_diary_share_path, class: "btn btn-primary" %>
+</div>
+<% if @diary_shares && @diary_shares.length > 0 %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">
+          User
+        </th>
+        <th scope="col">
+          Permission
+        </th>
+        <th scope="col">
+          Diary
+        </th>
+        <th scope="col">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @diary_shares.each do |diary_share| %>
+        <tr>
+          <td>
+            <%= diary_share.user.email %>
+          </td>
+          <td>
+            <% case diary_share.permission
+            when 0 -%>
+            No permission
+            <% when 1 %>
+            Can view diary
+            <% when 2 %>
+            Can edit diary
+          <% else %>
+            Full diary ownership
+          <% end %>
+        </td>
+        <td>
+          <%= diary_share.diary.name %>
+        </td>
+        <td>
+          <%= link_to "View", diary_share, class: "link link-secondary" %>
+          <span class="text-secondary"> |</span>
+          <%= link_to "Edit", edit_diary_share_path(diary_share), class: "link link-secondary" %>
+          <span class="text-secondary"> |</span>
+          <%= button_to "Delete", @diary_share, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+<%
+    if @diary_shares && (@diary_shares_total.is_a? Integer) && @diary_shares_total > 0
+      d_id = params.has_key?(:diary_id) ? params[:diary_id] + '&' : ''
+      from = params.has_key?(:from) ? params[:from].to_i : 0
+      to = params.has_key?(:to) ? params[:to].to_i : 9
+      step = from - to
+  %>
+<div>
+  <nav aria-label="Page navigation">
+    <ul class="pagination flex-wrap">
+      <% (0..@diary_shares_total).step(step) do |n| -%>
+        <li class="page-item <%= to == n ? 'active': ''%>">
+          <a class="page-link"
+            href="<%= diary_shares_path %>?<%= d_id %><%= 'from=' + (n + step).to_s + '&'%><%= 'to=' + n.to_s %>"><%= n/step + 1 %>
+          </a>
+        </li>
+      <% end -%>
+    </ul>
+  </nav>
+</div>
+<% end %>
+<% if (!@diary_shares && !@diary_shares_total) || (@diary_shares.length == 0 && @diary_shares_total == 0) %>
+  <p class="mt-2 text-secondary">No Diary Share created yet. Click New Diary Share to get started.</p>
+<% end %>

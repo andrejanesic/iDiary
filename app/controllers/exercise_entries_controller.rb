@@ -26,7 +26,8 @@ class ExerciseEntriesController < ApplicationController
     end
 
     d_id = if params[:diary_id] && params[:diary_id].to_i >= 0 &&
-              helpers.diary_belongs_to_user(params[:diary_id].to_i, current_user.id)
+              helpers.diary_user_permission(params[:diary_id].to_i,
+                                            current_user.id) >= DiariesHelper::PERMISSION_READONLY
              params[:diary_id]
            else
              Diary.where(user_id: current_user.id).pluck(:id)
@@ -43,7 +44,7 @@ class ExerciseEntriesController < ApplicationController
       # TODO šta ako ima samo jedan?
       @exercise_entries_total = ((ExerciseEntry.where(diary_id: d_id).order('timestamp DESC')[0].timestamp -
         ExerciseEntry.where(diary_id: d_id).order('timestamp DESC')[-1].timestamp
-                             ) / (60 * 60 * 24)).round
+                                 ) / (60 * 60 * 24)).round
       return
     end
 
@@ -52,9 +53,10 @@ class ExerciseEntriesController < ApplicationController
 
   # GET /exercise_entries/1 or /exercise_entries/1.json
   def show
-    unless helpers.diary_belongs_to_user(@exercise_entry.diary_id, current_user.id)
+    unless helpers.diary_user_permission(@exercise_entry.diary_id,
+                                         current_user.id) >= DiariesHelper::PERMISSION_READONLY
       respond_to do |format|
-        @exercise_entry.errors.add(:diary, 'does not belong to this user.')
+        @exercise_entry.errors.add(:diary, 'is not shared with you.')
         format.html { render :index, status: :unprocessable_entity }
         format.json { render json: @exercise_entry.errors, status: :unprocessable_entity }
       end
@@ -68,9 +70,9 @@ class ExerciseEntriesController < ApplicationController
 
   # GET /exercise_entries/1/edit
   def edit
-    unless helpers.diary_belongs_to_user(@exercise_entry.diary_id, current_user.id)
+    unless helpers.diary_user_permission(@exercise_entry.diary_id, current_user.id) >= DiariesHelper::PERMISSION_EDIT
       respond_to do |format|
-        @exercise_entry.errors.add(:diary, 'does not belong to this user.')
+        @exercise_entry.errors.add(:diary, 'is not shared with you.')
         format.html { render :index, status: :unprocessable_entity }
         format.json { render json: @exercise_entry.errors, status: :unprocessable_entity }
       end
@@ -80,8 +82,8 @@ class ExerciseEntriesController < ApplicationController
   # POST /exercise_entries or /exercise_entries.json
   def create
     @exercise_entry = ExerciseEntry.new(exercise_entry_params)
-    if !helpers.diary_belongs_to_user(@exercise_entry.diary_id, current_user.id)
-      @exercise_entry.errors.add(:diary, 'does not belong to this user.')
+    if helpers.diary_user_permission(@exercise_entry.diary_id, current_user.id) < DiariesHelper::PERMISSION_EDIT
+      @exercise_entry.errors.add(:diary, 'is not shared with you.')
       respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @exercise_entry.errors, status: :unprocessable_entity }
@@ -90,7 +92,9 @@ class ExerciseEntriesController < ApplicationController
 
       respond_to do |format|
         if @exercise_entry.save
-          format.html { redirect_to exercise_entry_url(@exercise_entry), notice: 'Fitness entry was successfully created.' }
+          format.html do
+            redirect_to exercise_entry_url(@exercise_entry), notice: 'Fitness entry was successfully created.'
+          end
           format.json { render :show, status: :created, location: @exercise_entry }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -102,9 +106,9 @@ class ExerciseEntriesController < ApplicationController
 
   # PATCH/PUT /exercise_entries/1 or /exercise_entries/1.json
   def update
-    if !helpers.diary_belongs_to_user(@exercise_entry.diary_id, current_user.id)
+    if helpers.diary_user_permission(@exercise_entry.diary_id, current_user.id) < DiariesHelper::PERMISSION_EDIT
       respond_to do |format|
-        @exercise_entry.errors.add(:diary, 'does not belong to this user.')
+        @exercise_entry.errors.add(:diary, 'is not shared with you.')
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @exercise_entry.errors, status: :unprocessable_entity }
       end
@@ -112,7 +116,9 @@ class ExerciseEntriesController < ApplicationController
 
       respond_to do |format|
         if @exercise_entry.update(exercise_entry_params)
-          format.html { redirect_to exercise_entry_url(@exercise_entry), notice: 'Fitness entry was successfully updated.' }
+          format.html do
+            redirect_to exercise_entry_url(@exercise_entry), notice: 'Fitness entry was successfully updated.'
+          end
           format.json { render :show, status: :ok, location: @exercise_entry }
         else
           format.html { render :edit, status: :unprocessable_entity }
@@ -124,9 +130,9 @@ class ExerciseEntriesController < ApplicationController
 
   # DELETE /exercise_entries/1 or /exercise_entries/1.json
   def destroy
-    if !helpers.diary_belongs_to_user(@exercise_entry.diary_id, current_user.id)
+    if helpers.diary_user_permission(@exercise_entry.diary_id, current_user.id) < DiariesHelper::PERMISSION_OWNERSHIP
       respond_to do |format|
-        @exercise_entry.errors.add(:diary, 'does not belong to this user.')
+        @exercise_entry.errors.add(:diary, 'is not shared with you.')
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @exercise_entry.errors, status: :unprocessable_entity }
       end
@@ -141,13 +147,14 @@ class ExerciseEntriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_exercise_entry
-      @exercise_entry = ExerciseEntry.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def exercise_entry_params
-      params.require(:exercise_entry).permit(:complete, :note, :timestamp, :diary_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_exercise_entry
+    @exercise_entry = ExerciseEntry.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def exercise_entry_params
+    params.require(:exercise_entry).permit(:complete, :note, :timestamp, :diary_id)
+  end
 end

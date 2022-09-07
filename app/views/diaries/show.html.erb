@@ -7,8 +7,26 @@
     <%= link_to "Exercises", exercise_entries_path(:from => "6", :to=>"0", :diary_id => @diary.id), class: "link link-primary" %>
   </div>
   <div>
-    <%= link_to "Edit diary", edit_diary_path(@diary), class: "link link-primary" %> |
-    <%= link_to "All diaries", diaries_path, class: "link link-secondary" %> | 
+    <%= link_to "Edit", edit_diary_path(@diary), class: "link link-primary" %> |
+    <%= link_to "Sharing", diary_shares_path, class: "link link-secondary" %> | 
     <%= button_to "Delete diary", @diary, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
   </div>
 </div>
+<%#
+<div>
+  <!-- TODO this should be a table of all entries for the day -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        Date
+      </tr>
+      <tr>
+        <th>Entry</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <!-- -->
+</div>
+%>
