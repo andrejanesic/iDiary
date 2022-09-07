@@ -3,7 +3,7 @@
   <h2><%= plural_table_name.titleize %></h2>
   <%%= link_to 'New <%= singular_table_name.titleize %>', new_<%= singular_route_name %>_path, class: "btn btn-primary" %>
 </div>
-<%% if @<%= plural_table_name %>.exists? %>
+<%% if @<%= plural_table_name %> && @<%= plural_table_name %>.length > 0 %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -35,5 +35,5 @@
   </tbody>
 </table>
 <%% else %>
-<p class="mt-2 text-secondary">No <%= singular_table_name %> created yet. Click New <%= singular_table_name.titleize %> to get started.</p>
+<p class="mt-2 text-secondary">No <%= singular_table_name.titleize %> created yet. Click New <%= singular_table_name.titleize %> to get started.</p>
 <%% end %>

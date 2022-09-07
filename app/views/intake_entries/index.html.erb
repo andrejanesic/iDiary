@@ -1,0 +1,69 @@
+<p class="text-success mb-4"><%= notice %></p>
+<div class="d-flex align-items-center justify-content-between">
+  <h2>Intake Entries</h2>
+  <%= link_to 'New Intake Entry', new_intake_entry_path, class: "btn btn-primary" %>
+</div>
+<% if @intake_entries && @intake_entries.length > 0 %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">
+          Consumed
+        </th>
+        <th scope="col">
+          Note
+        </th>
+        <th scope="col">
+          Timestamp
+        </th>
+        <th scope="col">
+          Diary
+        </th>
+        <th scope="col">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @intake_entries.each do |intake_entry| %>
+        <tr>
+          <td><%= intake_entry.consumed %></td>
+          <td><%= intake_entry.note %></td>
+          <td><%= intake_entry.timestamp %></td>
+          <td><%= intake_entry.diary.name %></td>
+          <td>
+            <%= link_to "View", intake_entry, class: "link link-secondary" %>
+            <span class="text-secondary"> |</span>
+            <%= link_to "Edit", edit_intake_entry_path(intake_entry), class: "link link-secondary" %>
+            <span class="text-secondary"> |</span>
+            <%= button_to "Delete", @intake_entry, method: :delete, class: "link link-danger", style: "text-decoration:underline;padding:0;background:none; border:none;", form: { style: "display:inline-block;" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+<%
+    if @intake_entries_total && @intake_entries_total > 0
+      d_id = params.has_key?(:diary_id) ? params[:diary_id] + '&' : ''
+      from = params.has_key?(:from) ? params[:from].to_i : 0
+      to = params.has_key?(:to) ? params[:to].to_i : 9
+      step = from - to
+  %>
+<div>
+  <nav aria-label="Page navigation">
+    <ul class="pagination flex-wrap">
+      <% (0..@intake_entries_total).step(step) do |n| -%>
+        <li class="page-item <%= to == n ? 'active': ''%>">
+          <a class="page-link"
+            href="<%= intake_entries_path %>?<%= d_id %><%= 'from=' + (n + step).to_s + '&'%><%= 'to=' + n.to_s %>"><%= n/step + 1 %>
+          </a>
+        </li>
+      <% end -%>
+    </ul>
+  </nav>
+</div>
+<% end %>
+<% if (!@intake_entries && !@intake_entries_total) || (@intake_entries.length == 0 && @intake_entries_total == 0) %>
+  <p class="mt-2 text-secondary">No Intake Entry created yet. Click New Intake Entry to get started.</p>
+<% end %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :intake_entries
   # TODO this should be renamed to fitness_entries
   resources :body_entries
   resources :diaries

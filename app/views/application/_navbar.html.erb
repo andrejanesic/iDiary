@@ -14,6 +14,9 @@
             <%= link_to "Fitness Entries", body_entries_path, class:'nav-link' %>
           </li>
           <li class="nav-item">
+            <%= link_to "Intake Entries", intake_entries_path, class:'nav-link' %>
+          </li>
+          <li class="nav-item">
             <%= link_to "Sign out", destroy_user_session_path, class:'nav-link', data: { turbo_method: :delete } %>
           </li>
         <% else %>

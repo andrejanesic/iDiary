@@ -5,18 +5,58 @@ class BodyEntriesController < ApplicationController
 
   # GET /body_entries or /body_entries.json
   def index
-    @body_entries = BodyEntry.where(
-      diary_id: Diary.where(user_id: current_user.id).pluck(:id)
-    )
+    d_id = nil
+    from = nil # from comes chronologically before to
+    to = nil
+
+    if params.has_key?(:from) && params.has_key?(:to)
+      if (params[:from].to_i < 0 || params[:to].to_i < 0) ||
+         (params[:from].to_i < params[:to].to_i) ||
+         (params[:from].to_i > 10_000 || params[:to].to_i > 10_000)
+
+        respond_to do |format|
+          format.html { render :index, status: :unprocessable_entity }
+          format.json { render json: { "range": 'from and to must be >= 0' }, status: :unprocessable_entity }
+        end
+        return
+      else
+        from = params[:from].to_i
+        to = params[:to].to_i
+      end
+    end
+
+    d_id = if params[:diary_id] && params[:diary_id].to_i >= 0 &&
+              helpers.diary_belongs_to_user(params[:diary_id].to_i, current_user.id)
+             params[:diary_id]
+           else
+             Diary.where(user_id: current_user.id).pluck(:id)
+           end
+
+    unless from.nil?
+      @body_entries = BodyEntry.where(
+        '(timestamp BETWEEN ? AND ?) AND diary_id IN (?)',
+        DateTime.now - from,
+        DateTime.now - to,
+        d_id
+      ).order('timestamp DESC')
+      # TODO: šta ako nema ni jedan?
+      # TODO šta ako ima samo jedan?
+      @body_entries_total = ((BodyEntry.where(diary_id: d_id).order('timestamp DESC')[0].timestamp -
+        BodyEntry.where(diary_id: d_id).order('timestamp DESC')[-1].timestamp
+                             ) / (60 * 60 * 24)).round
+      return
+    end
+
+    @body_entries = BodyEntry.where(diary_id: d_id).order('timestamp DESC')
   end
 
   # GET /body_entries/1 or /body_entries/1.json
   def show
     unless helpers.diary_belongs_to_user(@body_entry.diary_id, current_user.id)
       respond_to do |format|
-        @diary.errors.add(:diary, 'does not belong to this user.')
+        @body_entry.errors.add(:diary, 'does not belong to this user.')
         format.html { render :index, status: :unprocessable_entity }
-        format.json { render json: @diary.errors, status: :unprocessable_entity }
+        format.json { render json: @body_entry.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -30,9 +70,9 @@ class BodyEntriesController < ApplicationController
   def edit
     unless helpers.diary_belongs_to_user(@body_entry.diary_id, current_user.id)
       respond_to do |format|
-        @diary.errors.add(:diary, 'does not belong to this user.')
+        @body_entry.errors.add(:diary, 'does not belong to this user.')
         format.html { render :index, status: :unprocessable_entity }
-        format.json { render json: @diary.errors, status: :unprocessable_entity }
+        format.json { render json: @body_entry.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -62,7 +102,6 @@ class BodyEntriesController < ApplicationController
 
   # PATCH/PUT /body_entries/1 or /body_entries/1.json
   def update
-    @body_entry = BodyEntry.new(body_entry_params)
     if !helpers.diary_belongs_to_user(@body_entry.diary_id, current_user.id)
       respond_to do |format|
         @body_entry.errors.add(:diary, 'does not belong to this user.')

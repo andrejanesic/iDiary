@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  consumed: false
+  note: MyText
+  timestamp: 2022-09-07 13:33:28
+  diary: one
+
+two:
+  consumed: false
+  note: MyText
+  timestamp: 2022-09-07 13:33:28
+  diary: two
