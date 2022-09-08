@@ -9,16 +9,14 @@ module FoodComplexesHelper
     # only verify
     if User.find(u_id).role == 'admin'
       FoodComplexesHelper::PERMISSION_OWNERSHIP
+    elsif FoodComplex.find(fc_id).user_id == u_id
+      # if actual owner
+      FoodComplexesHelper::PERMISSION_OWNERSHIP
     else
-
       return FoodComplexesHelper::PERMISSION_READONLY if FoodComplex.find(fc_id).public
 
-      # if actual owner
-      if FoodComplex.find(fc_id).user_id == u_id
-        FoodComplexesHelper::PERMISSION_OWNERSHIP
-      else
-        PERMISSION_NOPERMISSION
-      end
+      PERMISSION_NOPERMISSION
+
       # TODO: sharing for food_complexes
       # if not owner, check if shared
       #     food_complex_shares = FoodComplexShare.where(food_complex_id: fc_id, user_id: u_id)

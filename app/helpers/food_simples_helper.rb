@@ -9,16 +9,14 @@ module FoodSimplesHelper
     # only verify
     if User.find(u_id).role == 'admin'
       FoodSimplesHelper::PERMISSION_OWNERSHIP
+    elsif FoodSimple.find(fs_id).user_id == u_id
+      # if actual owner
+      FoodSimplesHelper::PERMISSION_OWNERSHIP
     else
-
       return FoodSimplesHelper::PERMISSION_READONLY if FoodSimple.find(fs_id).public
 
-      # if actual owner
-      if FoodSimple.find(fs_id).user_id == u_id
-        FoodSimplesHelper::PERMISSION_OWNERSHIP
-      else
-        PERMISSION_NOPERMISSION
-      end
+      PERMISSION_NOPERMISSION
+
       # TODO: sharing for food_simples
       # if not owner, check if shared
       #     food_simple_shares = FoodSimpleShare.where(food_simple_id: fs_id, user_id: u_id)
