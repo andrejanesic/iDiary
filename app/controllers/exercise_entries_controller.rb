@@ -93,7 +93,7 @@ class ExerciseEntriesController < ApplicationController
       respond_to do |format|
         if @exercise_entry.save
           format.html do
-            redirect_to exercise_entry_url(@exercise_entry), notice: 'Fitness entry was successfully created.'
+            redirect_to exercise_entry_url(@exercise_entry), notice: 'Exercise entry was successfully created.'
           end
           format.json { render :show, status: :created, location: @exercise_entry }
         else
@@ -117,7 +117,7 @@ class ExerciseEntriesController < ApplicationController
       respond_to do |format|
         if @exercise_entry.update(exercise_entry_params)
           format.html do
-            redirect_to exercise_entry_url(@exercise_entry), notice: 'Fitness entry was successfully updated.'
+            redirect_to exercise_entry_url(@exercise_entry), notice: 'Exercise entry was successfully updated.'
           end
           format.json { render :show, status: :ok, location: @exercise_entry }
         else
@@ -140,7 +140,7 @@ class ExerciseEntriesController < ApplicationController
       @exercise_entry.destroy
 
       respond_to do |format|
-        format.html { redirect_to exercise_entries_url, notice: 'Fitness entry was successfully destroyed.' }
+        format.html { redirect_to exercise_entries_url, notice: 'Exercise entry was successfully destroyed.' }
         format.json { head :no_content }
       end
     end

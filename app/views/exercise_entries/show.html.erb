@@ -9,45 +9,37 @@
 </div>
 <table class="table table-striped">
   <tbody>
-          <tr>
-        <td scope="row">
-          <span class="fw-bold">Complete</span>
-        </td>
-        <td>
-          
-            <%= @exercise_entry.complete %>
-          
-        </td>
-      </tr>
-          <tr>
-        <td scope="row">
-          <span class="fw-bold">Note</span>
-        </td>
-        <td>
-          
-            <%= @exercise_entry.note %>
-          
-        </td>
-      </tr>
-          <tr>
-        <td scope="row">
-          <span class="fw-bold">Timestamp</span>
-        </td>
-        <td>
-          
-            <%= @exercise_entry.timestamp %>
-          
-        </td>
-      </tr>
-          <tr>
-        <td scope="row">
-          <span class="fw-bold">Diary</span>
-        </td>
-        <td>
-          
-            <%= @exercise_entry.diary %>
-          
-        </td>
-      </tr>
-      </tbody>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Complete</span>
+      </td>
+      <td>
+        <%= @exercise_entry.complete %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Note</span>
+      </td>
+      <td>
+        <%= @exercise_entry.note %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Timestamp</span>
+      </td>
+      <td>
+        <%= @exercise_entry.timestamp %>
+      </td>
+    </tr>
+    <tr>
+      <td scope="row">
+        <span class="fw-bold">Diary</span>
+      </td>
+      <td>
+        <%= @exercise_entry.diary.name %>
+      </td>
+    </tr>
+  </tbody>
 </table>

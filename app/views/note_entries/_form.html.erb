@@ -1,0 +1,32 @@
+<%= form_with(model: note_entry) do |form| %>
+  <% if note_entry.errors.any? %>
+    <div class="p-3 mb-3 bg-warning">
+      <h2 class="h6 fw-bold"><%= pluralize(note_entry.errors.count, "error") %> prohibited this diary from being saved:</h2>
+      <ul class="mb-1">
+        <% note_entry.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="mb-2">
+    <%= form.label :note, class: "form-label d-block" %>
+    <%= form.text_area :note, class: "form-control" %>
+  </div>
+  <div class="mb-2">
+    <%= form.label :timestamp, class: "form-label d-block" %>
+    <%= form.datetime_field :timestamp, class: "form-control", placeholder: "YYYY-MM-DDTHH:MM:SS",
+    pattern: "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}" %>
+  </div>
+  <div class="mb-2">
+    <%= form.label :diary_id, class: "form-label d-block" %>
+    <select id="note_entry_diary_id" name="note_entry[diary_id]" class="form-select">
+      <% Diary.where(user_id: current_user.id).each do |d|-%>
+        <option value="<%=d.id %>" <%= (@note_entry && @note_entry.diary_id == d.id) ? 'selected' : ''%>><%= d.name %></option>
+        <% end -%>
+      </select>
+    </div>
+    <div>
+      <%= form.submit class: 'btn btn-primary' %>
+    </div>
+  <% end %>

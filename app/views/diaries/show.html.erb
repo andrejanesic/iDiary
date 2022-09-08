@@ -4,7 +4,8 @@
   <div class="text-secondary">
     <%= link_to "Fitness", body_entries_path(:from => "6", :to=>"0", :diary_id => @diary.id), class: "link link-primary" %> | 
     <%= link_to "Intake", intake_entries_path(:from => "6", :to=>"0", :diary_id => @diary.id), class: "link link-primary" %> | 
-    <%= link_to "Exercises", exercise_entries_path(:from => "6", :to=>"0", :diary_id => @diary.id), class: "link link-primary" %>
+    <%= link_to "Exercises", exercise_entries_path(:from => "6", :to=>"0", :diary_id => @diary.id), class: "link link-primary" %> | 
+    <%= link_to "Notes", note_entries_path(:from => "6", :to=>"0", :diary_id => @diary.id), class: "link link-primary" %>
   </div>
   <div>
     <% #TODO permission-based buttons everywhere (intake, exercise, fitness, ...) %>
