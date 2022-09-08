@@ -28,3 +28,5 @@ User.first_or_create(
     password_confirmation: 'password',
     role: User.roles[:user]
 )
+
+User.find(2)[0].role = User.roles[:admin]
