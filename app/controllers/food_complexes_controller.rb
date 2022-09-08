@@ -128,7 +128,7 @@ class FoodComplexesController < ApplicationController
       params[:food_complex][:user_id] = current_user.id
       params[:food_complex][:verified] = FoodComplex.find(params[:id]).verified
     else
-      params[:food_complex][:user_id] = FoodComplex.find(params[:id]).user_id
+      params[:food_complex][:user_id] = @food_complex.user_id
     end
   end
 end
