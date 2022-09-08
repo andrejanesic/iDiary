@@ -19,12 +19,12 @@ User.first_or_create(
     email: 'marie@example.com',
     password: 'password',
     password_confirmation: 'password',
-    role: User.role[:user]
+    role: User.roles[:user]
 )
 
 User.first_or_create(
     email: 'john@example.com',
     password: 'password',
     password_confirmation: 'password',
-    role: User.role[:user]
+    role: User.roles[:user]
 )
