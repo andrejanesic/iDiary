@@ -45,6 +45,8 @@ class DiarySharesController < ApplicationController
     end
   end
 
+  #TODO we must check if there is already a share for this user-diary pair!!!! Must be unique!!!!
+
   # POST /diary_shares or /diary_shares.json
   def create
     @diary_share = DiaryShare.new(diary_share_params)
