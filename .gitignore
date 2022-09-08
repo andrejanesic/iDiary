@@ -36,3 +36,6 @@
 
 # Ignore code editors.
 .vscode
+
+# Ignore lock file.
+Gemfile.lock
