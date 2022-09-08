@@ -9,6 +9,9 @@ module FoodSimplesHelper
     # only verify
     if User.find(u_id).role == 'admin'
       FoodSimplesHelper::PERMISSION_OWNERSHIP
+    elsif FoodSimple.find(fs_id).verified
+      # if verified and not admin
+      FoodSimplesHelper::PERMISSION_READONLY
     elsif FoodSimple.find(fs_id).user_id == u_id
       # if actual owner
       FoodSimplesHelper::PERMISSION_OWNERSHIP
