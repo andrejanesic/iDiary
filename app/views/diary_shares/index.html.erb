@@ -40,7 +40,7 @@
           <% end %>
         </td>
         <td>
-          <%= diary_share.diary.name %>
+          <%= link_to diary_share.diary.name, diary_share.diary, class: "link link-primary fw-bold" %>
         </td>
         <td>
           <% if diary_user_permission(diary_share.diary_id, current_user.id) >= DiariesHelper::PERMISSION_READONLY %>
