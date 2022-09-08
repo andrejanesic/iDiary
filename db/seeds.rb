@@ -29,6 +29,6 @@ User.first_or_create(
     role: User.roles[:user]
 )
 
-admn = User.where(user_id: 1).first
+admn = User.where(id: 1).first
 admn.role = User.roles[:admin]
 admn.save
