@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_09_07_235740) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "body_entries", force: :cascade do |t|
     t.float "height"
     t.float "weight"
@@ -18,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_235740) do
     t.float "muscle_mass"
     t.text "note"
     t.datetime "timestamp"
-    t.integer "diary_id", null: false
+    t.bigint "diary_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["diary_id"], name: "index_body_entries_on_diary_id"
@@ -26,7 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_235740) do
 
   create_table "diaries", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_diaries_on_user_id"
@@ -34,8 +37,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_235740) do
 
   create_table "diary_shares", force: :cascade do |t|
     t.integer "permission"
-    t.integer "diary_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "diary_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["diary_id"], name: "index_diary_shares_on_diary_id"
@@ -46,7 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_235740) do
     t.boolean "complete"
     t.text "note"
     t.datetime "timestamp"
-    t.integer "diary_id", null: false
+    t.bigint "diary_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["diary_id"], name: "index_exercise_entries_on_diary_id"
@@ -58,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_235740) do
     t.boolean "template"
     t.boolean "verified"
     t.boolean "public"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_food_complexes_on_name", unique: true
@@ -76,7 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_235740) do
     t.boolean "verified"
     t.boolean "public"
     t.text "description"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_food_simples_on_name", unique: true
@@ -90,7 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_235740) do
     t.float "carbs"
     t.float "proteins"
     t.string "frequency"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_goals_on_user_id"
@@ -100,7 +103,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_235740) do
     t.boolean "consumed"
     t.text "note"
     t.datetime "timestamp"
-    t.integer "diary_id", null: false
+    t.bigint "diary_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["diary_id"], name: "index_intake_entries_on_diary_id"
@@ -109,7 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_235740) do
   create_table "note_entries", force: :cascade do |t|
     t.text "note"
     t.datetime "timestamp"
-    t.integer "diary_id", null: false
+    t.bigint "diary_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["diary_id"], name: "index_note_entries_on_diary_id"
